@@ -1,0 +1,124 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=0.75in, left=0.1in]{geometry}
+\usepackage{longtable}
+\usepackage{helvet}
+\usepackage{array}
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\arraystretch}{1.4}
+
+\setlength{\tabcolsep}{6pt}
+\pagestyle{empty}
+
+\begin{document}
+\section*{Common Probability Distributions}
+
+\noindent
+\begin{longtable}{|>{\bfseries}m{2cm}|m{2.8cm}|p{4.5cm}|p{5.2cm}|p{4.5cm}|}
+\hline
+\textbf{Name} & \textbf{Symbol / Representation} & \textbf{PDF and CDF} & \textbf{Generation and Applications} & \textbf{Relationship to Normal} \\
+\hline
+\endfirsthead
+\hline
+\multicolumn{5}{|r|}{\textit{Table continued from previous page}} \\
+\hline
+\textbf{Name} & \textbf{Symbol / Representation} & \textbf{PDF and CDF} & \textbf{Generation and Applications} & \textbf{Relationship to Normal} \\
+\hline
+\endhead
+\hline
+\multicolumn{5}{|r|}{\textit{Continued on next page}} \\
+\hline
+\endfoot
+\hline
+\endlastfoot
+
+Normal & $X \sim \mathcal{N}(\mu, \sigma^2)$ & 
+PDF: $\frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$ \newline
+CDF: $\Phi\left(\frac{x - \mu}{\sigma}\right)$ & 
+Generated via CLT or Box-Muller transform; used in modeling natural variation & 
+Baseline distribution; many others converge to it under limiting conditions \\
+\hline
+
+Binomial & $X \sim \mathrm{Bin}(n, p)$ & 
+PMF: $\binom{n}{k} p^k (1 - p)^{n - k}$ \newline
+CDF: $\sum_{i=0}^k \binom{n}{i} p^i (1 - p)^{n - i}$ & 
+Counts successes in $n$ Bernoulli trials; used in discrete event modeling & 
+Approximates normal when $n$ is large and $p$ not near 0 or 1 \\
+\hline
+
+Poisson & $X \sim \mathrm{Pois}(\lambda)$ & 
+PMF: $\frac{\lambda^k e^{-\lambda}}{k!}$ \newline
+CDF: $\sum_{i=0}^k \frac{\lambda^i e^{-\lambda}}{i!}$ & 
+Models rare events over time/space; used in queuing, traffic, biology & 
+Approaches normal as $\lambda \to \infty$ \\
+\hline
+
+Gamma & $X \sim \Gamma(\alpha, \beta)$ & 
+PDF: $\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}$ \newline
+CDF: $\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}$ & 
+Sum of $\alpha$ exponential variables; used in waiting times, Bayesian priors & 
+Sum of squared normals yields chi-square, a special case of gamma \\
+\hline
+
+Lognormal & $X \sim \mathrm{Log}\mathcal{N}(\mu, \sigma^2)$ & 
+PDF: $\frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln x - \mu)^2}{2\sigma^2}}$ \newline
+CDF: $\Phi\left(\frac{\ln x - \mu}{\sigma}\right)$ & 
+Exponentiated normal; used in finance, reliability, and multiplicative processes & 
+Log of lognormal is normal \\
+\hline
+
+Exponential & $X \sim \mathrm{Exp}(\lambda)$ & 
+PDF: $\lambda e^{-\lambda x}$ \newline
+CDF: $1 - e^{-\lambda x}$ & 
+Time between Poisson events; memoryless; used in survival analysis & 
+Special case of gamma with $\alpha = 1$ \\
+\hline
+
+Beta & $X \sim \mathrm{Beta}(\alpha, \beta)$ & 
+PDF: $\frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}{B(\alpha, \beta)}$ \newline
+CDF: $I_x(\alpha, \beta)$ & 
+Models probabilities and proportions; used in Bayesian inference & 
+No direct convergence, but appears in normalized transformations \\
+\hline
+
+Chi-Square & $X \sim \chi^2_k$ & 
+PDF: $\frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2 - 1} e^{-x/2}$ \newline
+CDF: $\frac{\gamma(k/2, x/2)}{\Gamma(k/2)}$ & 
+Sum of squares of $k$ standard normals; used in hypothesis testing & 
+Derived from squared standard normals \\
+\hline
+
+Student's t & $X \sim t_\nu$ & 
+PDF: $\frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu\pi} \Gamma\left(\frac{\nu}{2}\right)} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu+1}{2}}$ & 
+Used in small-sample inference; arises from normal with unknown variance & 
+Converges to standard normal as $\nu \to \infty$ \\
+\hline
+
+F-distribution & $X \sim F_{d_1, d_2}$ & 
+PDF: $\frac{(d_1/d_2)^{d_1/2} x^{d_1/2 - 1}}{B(d_1/2, d_2/2)(1 + \frac{d_1}{d_2}x)^{(d_1 + d_2)/2}}$ & 
+Ratio of scaled chi-squares; used in ANOVA and variance testing & 
+Related to normal via chi-square components \\
+\hline
+
+Bernoulli & $X \sim \mathrm{Bern}(p)$ & 
+PMF: $P(X=1) = p$, $P(X=0) = 1 - p$ & 
+Single trial success/failure; building block for binomial & 
+Sum of Bernoulli trials leads to binomial, then normal \\
+\hline
+
+Geometric & $X \sim \mathrm{Geom}(p)$ & 
+PMF: $P(X = k) = (1 - p)^{k - 1} p$ & 
+Counts trials until first success; memoryless & 
+No direct convergence, but approximates exponential in continuous limit \\
+\hline
+
+Uniform (continuous) & $X \sim \mathcal{U}(a, b)$ & 
+PDF: $\frac{1}{b - a}$ for $x \in [a, b]$ \newline
+CDF: $\frac{x - a}{b - a}$ & 
+Models equal likelihood; used in simulation and random sampling & 
+Sum of many uniforms approximates normal (CLT) \\
+\hline
+
+\end{longtable}
+
+\end{document}
