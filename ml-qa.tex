@@ -1,36 +1,50 @@
 \documentclass[10pt]{article}
-\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=0.75in, left=0.1in]{geometry}
+\usepackage{longtable}
 \usepackage{helvet}
 \usepackage{array}
-\usepackage{booktabs} % For professional-looking horizontal lines
-
-% Set the default font to sans-serif (like Helvetica)
 \renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\arraystretch}{1.4}
 
-% Increase row spacing for better readability
-\renewcommand{\arraystretch}{1.5}
-
-% Remove page numbers
+\setlength{\tabcolsep}{6pt}
 \pagestyle{empty}
 
 \begin{document}
+\begin{center}
+\section*{Bootstrapping vs. Bagging Summary}
+\end{center}
+\noindent
+\begin{longtable}{|>{\bfseries}m{3cm}|p{6.5cm}|p{6.5cm}|}
+\hline
+\textbf{Feature} & \textbf{Bootstrapping} & \textbf{Bagging (Bootstrap Aggregating)} \\
+\hline
+\endfirsthead
+\hline
+\multicolumn{3}{|r|}{\textit{Table continued from previous page}} \\
+\hline
+\textbf{Feature} & \textbf{Bootstrapping} & \textbf{Bagging (Bootstrap Aggregating)} \\
+\hline
+\endhead
+\hline
+\multicolumn{3}{|r|}{\textit{Continued on next page}} \\
+\hline
+\endfoot
+\hline
+\endlastfoot
 
-% The tabular environment for the table
-% The [t] option aligns the top of the table with the baseline
-\begin{tabular}{@{} >{\bfseries}l p{4.5cm} p{6.5cm} @{}}
-\toprule
-\multicolumn{3}{c}{\Large\bfseries Bootstrapping vs. Bagging Summary} \\
-\midrule
-Feature & Bootstrapping & Bagging (Bootstrap Aggregating) \\
-\cmidrule(r){1-1} \cmidrule(lr){2-2} \cmidrule(l){3-3}
 Primary Role & A \textbf{sampling method}. & An \textbf{ensemble learning technique}. \\
+\hline
 
 Purpose & To estimate the uncertainty of a statistic or generate data subsets. & To improve model accuracy and reduce variance (overfitting). \\
+\hline
 
 Process & Randomly sampling data \textbf{with replacement} to create a single new dataset. & \textbf{Uses bootstrapping} repeatedly to create many datasets, trains a model on each, and then aggregates the predictions. \\
+\hline
 
 Output & A new dataset (a bootstrap sample). & A single, robust final prediction. \\
-\bottomrule
-\end{tabular}
+\hline
+
+\end{longtable}
 
 \end{document}
