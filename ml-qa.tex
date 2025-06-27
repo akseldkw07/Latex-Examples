@@ -12,38 +12,47 @@
 
 \begin{document}
 \begin{center}
-\section*{Bootstrapping vs. Bagging Summary}
+  \section*{Bootstrapping vs. Bagging Summary}
 \end{center}
 \noindent
 \begin{longtable}{|>{\bfseries}m{3cm}|p{6.5cm}|p{6.5cm}|}
-\hline
-\textbf{Feature} & \textbf{Bootstrapping} & \textbf{Bagging (Bootstrap Aggregating)} \\
-\hline
-\endfirsthead
-\hline
-\multicolumn{3}{|r|}{\textit{Table continued from previous page}} \\
-\hline
-\textbf{Feature} & \textbf{Bootstrapping} & \textbf{Bagging (Bootstrap Aggregating)} \\
-\hline
-\endhead
-\hline
-\multicolumn{3}{|r|}{\textit{Continued on next page}} \\
-\hline
-\endfoot
-\hline
-\endlastfoot
+  \hline
+  \textbf{Feature} & \textbf{Bootstrapping} & \textbf{Bagging
+  (Bootstrap Aggregating)} \\
+  \hline
+  \endfirsthead
+  \hline
+  \multicolumn{3}{|r|}{\textit{Table continued from previous page}} \\
+  \hline
+  \textbf{Feature} & \textbf{Bootstrapping} & \textbf{Bagging
+  (Bootstrap Aggregating)} \\
+  \hline
+  \endhead
+  \hline
+  \multicolumn{3}{|r|}{\textit{Continued on next page}} \\
+  \hline
+  \endfoot
+  \hline
+  \endlastfoot
 
-Primary Role & A \textbf{sampling method}. & An \textbf{ensemble learning technique}. \\
-\hline
+  Primary Role & A \textbf{sampling method}. & An \textbf{ensemble
+  learning technique}. \\
+  \hline
 
-Purpose & To estimate the uncertainty of a statistic or generate data subsets. & To improve model accuracy and reduce variance (overfitting). \\
-\hline
+  Purpose & To estimate the uncertainty of a statistic or generate
+  data subsets. & To improve model accuracy and reduce variance
+  (overfitting). \\
+  \hline
 
-Process & Randomly sampling data \textbf{with replacement} to create a single new dataset. & \textbf{Uses bootstrapping} repeatedly to create many datasets, trains a model on each, and then aggregates the predictions. \\
-\hline
+  Process & Randomly sampling data \textbf{with replacement} to
+  create a single new dataset. & \textbf{Uses bootstrapping}
+  repeatedly to create many datasets, trains a model on each, and
+  then aggregates the predictions. \\
+  \hline
 
-Output & A new dataset (a bootstrap sample). & A single, robust final prediction. \\
-\hline
+  Output & A new dataset (a bootstrap sample). & A single, robust
+  final prediction. \\
+  \hline
 
 \end{longtable}
 
