@@ -1,0 +1,76 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=0.2in]{geometry}
+\usepackage{longtable}
+\usepackage{helvet}
+\usepackage{array}
+
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\arraystretch}{1.4}
+\setlength{\tabcolsep}{8pt}
+
+\begin{document}
+
+\section*{Common Regression Methods}
+
+\noindent
+\begin{longtable}{|>{\bfseries}m{3cm}|m{5cm}|p{4cm}|p{6cm}|}
+
+		% --- Header and Footer Definitions ---
+		\hline
+		\textbf{Name} & \textbf{Formula} & \textbf{Definition} & \textbf{Significance} \\
+		\hline
+		\endfirsthead
+		\hline
+		\multicolumn{4}{|r|}{\textit{Table continued from previous page}} \\
+		\hline
+		\textbf{Name} & \textbf{Formula} & \textbf{Definition} & \textbf{Significance} \\
+		\hline
+		\endhead
+		\hline
+		\multicolumn{4}{|r|}{\textit{Continued on next page}} \\
+		\endfoot
+		\hline
+		\endlastfoot
+
+		% --- Table Body Starts Here ---
+		Ordinary Least Squares (OLS) & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2$ &
+		Minimizes the sum of squared residuals between observed and predicted values & Provides
+		unbiased, efficient estimates under classical assumptions; foundation for many
+		statistical models \\
+		\hline
+		Ridge Regression & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2 + \lambda
+		\lVert\beta\rVert_2^2$ & OLS with $\ell_2$ penalty on coefficients & Shrinks
+		coefficients to reduce variance; useful for multicollinearity and high-dimensional data \\
+		\hline
+		Lasso Regression & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2 + \lambda
+		\lVert\beta\rVert_1$ & OLS with $\ell_1$ penalty on coefficients & Promotes sparsity;
+		performs variable selection and regularization \\
+		\hline
+		Elastic Net & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2 + \lambda_1
+		\lVert\beta\rVert_1 + \lambda_2 \lVert\beta\rVert_2^2$ & Combines $\ell_1$ and $\ell_2$
+		penalties & Balances sparsity and shrinkage; effective when predictors are correlated \\
+		\hline
+		Least Absolute Deviations (LAD) & $\min_{\beta} \sum_{i=1}^n |y_i - X_i\beta|$ &
+		Minimizes the sum of absolute residuals & Robust to outliers; estimates the conditional median \\
+		\hline
+		Huber Regression & $\min_{\beta} \sum_{i=1}^n L_\delta(y_i - X_i\beta)$, $L_\delta(r) =
+		\begin{cases} \frac{1}{2}r^2 & |r| \leq \delta \\ \delta(|r| - \frac{1}{2}\delta) & |r| > \delta
+		\end{cases}$ & Hybrid loss: quadratic for small residuals, linear for large & Robust to
+		outliers while retaining efficiency for small errors \\
+		\hline
+		Quantile Regression & $\min_{\beta} \sum_{i=1}^n \rho_\tau(y_i - X_i\beta)$,
+		$\rho_\tau(r) = r(\tau - \mathbb{I}\{r < 0\})$ & Estimates conditional quantiles (e.g.,
+		median) & Useful for modeling heterogeneous effects and non-normal errors \\
+		\hline
+		Principal Component Regression (PCR) & OLS on principal components of $X$ & Projects
+		predictors onto principal components before regression & Reduces dimensionality and
+		multicollinearity; interpretable in terms of variance explained \\
+		\hline
+		Partial Least Squares (PLS) & OLS on latent variables maximizing covariance between $X$
+		and $y$ & Finds components that explain both predictors and response & Useful when
+		predictors are highly collinear and $p > n$ \\
+		\hline
+\end{longtable}
+
+\end{document}
