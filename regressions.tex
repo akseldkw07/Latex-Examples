@@ -7,14 +7,14 @@
 
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\arraystretch}{1.4}
-\setlength{\tabcolsep}{8pt}
+\setlength{\tabcolsep}{4pt}
 
 \begin{document}
 
 \section*{Common Regression Methods}
 
 \noindent
-\begin{longtable}{|>{\bfseries}m{3cm}|m{5cm}|p{4cm}|p{6cm}|}
+\begin{longtable}{|>{\bfseries}m{3cm}|m{5cm}|p{3.5cm}|p{8cm}|}
 
 		% --- Header and Footer Definitions ---
 		\hline
@@ -34,42 +34,146 @@
 		\endlastfoot
 
 		% --- Table Body Starts Here ---
-		Ordinary Least Squares (OLS) & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2$ &
-		Minimizes the sum of squared residuals between observed and predicted values & Provides
-		unbiased, efficient estimates under classical assumptions; foundation for many
-		statistical models \\
+		Ordinary Least Squares (OLS) & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2$
+		} & \parbox{3.5cm}{\vspace{2pt}Minimizes the sum of squared residuals between observed
+		and predicted values} & \parbox{8cm}{\vspace{2pt}
+				Provides unbiased, efficient estimates under classical assumptions; foundation for
+				many statistical models. \\
+				\textbf{Closed-form:} Yes ($\beta = (X^TX)^{-1}X^Ty$); \\
+				\textbf{Cost:} $O(nd^2 + d^3)$
+				\vspace{4pt}
+		} \\
 		\hline
-		Ridge Regression & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2 + \lambda
-		\lVert\beta\rVert_2^2$ & OLS with $\ell_2$ penalty on coefficients & Shrinks
-		coefficients to reduce variance; useful for multicollinearity and high-dimensional data \\
+		Ridge Regression & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2$
+				$+ \lambda \lVert\beta\rVert_2^2$
+		} & \parbox{3.5cm}{\vspace{2pt}OLS with $\ell_2$ penalty on coefficients} &
+		\parbox{8cm}{\vspace{2pt}
+				Shrinks coefficients to reduce variance; useful for multicollinearity and
+				high-dimensional data. \\
+				\textbf{Closed-form:} Yes ($\beta = (X^TX + \lambda I)^{-1}X^Ty$); \\
+				\textbf{Cost:} $O(nd^2 + d^3)$
+				\vspace{4pt}
+		} \\
 		\hline
-		Lasso Regression & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2 + \lambda
-		\lVert\beta\rVert_1$ & OLS with $\ell_1$ penalty on coefficients & Promotes sparsity;
-		performs variable selection and regularization \\
+		Lasso Regression & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2$
+				$+ \lambda \lVert\beta\rVert_1$
+		} & \parbox{3.5cm}{\vspace{2pt}OLS with $\ell_1$ penalty on coefficients} &
+		\parbox{8cm}{\vspace{2pt}
+				Promotes sparsity; performs variable selection and regularization. \\
+				\textbf{Closed-form:} No; solved by coordinate descent or convex optimization; \\
+				\textbf{Cost:} iterative, $O(ndk)$ for $k$ iterations
+				\vspace{4pt}
+		} \\
 		\hline
-		Elastic Net & $\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2 + \lambda_1
-		\lVert\beta\rVert_1 + \lambda_2 \lVert\beta\rVert_2^2$ & Combines $\ell_1$ and $\ell_2$
-		penalties & Balances sparsity and shrinkage; effective when predictors are correlated \\
+		Elastic Net & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n (y_i - X_i\beta)^2$ \\
+				$+ \lambda_1 \lVert\beta\rVert_1$
+				$+ \lambda_2 \lVert\beta\rVert_2^2$
+		} & \parbox{3.5cm}{\vspace{2pt}Combines $\ell_1$ and $\ell_2$ penalties} &
+		\parbox{8cm}{\vspace{2pt}
+				Balances sparsity and shrinkage; effective when predictors are correlated. \\
+				\textbf{Closed-form:} No; solved by coordinate descent or convex optimization; \\
+				\textbf{Cost:} iterative, $O(ndk)$ for $k$ iterations
+				\vspace{4pt}
+		} \\
 		\hline
-		Least Absolute Deviations (LAD) & $\min_{\beta} \sum_{i=1}^n |y_i - X_i\beta|$ &
-		Minimizes the sum of absolute residuals & Robust to outliers; estimates the conditional median \\
+		Least Absolute Deviations (LAD) & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n |y_i - X_i\beta|$
+		} & \parbox{3.5cm}{\vspace{2pt}Minimizes the sum of absolute residuals} &
+		\parbox{8cm}{\vspace{2pt}
+				Robust to outliers; estimates the conditional median. \\
+				\textbf{Closed-form:} No; solved by linear programming or iterative methods; \\
+				\textbf{Cost:} iterative, $O(ndk)$
+				\vspace{4pt}
+		} \\
 		\hline
-		Huber Regression & $\min_{\beta} \sum_{i=1}^n L_\delta(y_i - X_i\beta)$, $L_\delta(r) =
-		\begin{cases} \frac{1}{2}r^2 & |r| \leq \delta \\ \delta(|r| - \frac{1}{2}\delta) & |r| > \delta
-		\end{cases}$ & Hybrid loss: quadratic for small residuals, linear for large & Robust to
-		outliers while retaining efficiency for small errors \\
+		Huber Regression & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n L_\delta(y_i - X_i\beta)$ \\
+				$L_\delta(r) =
+				\begin{cases} \frac{1}{2}r^2 & |r| \leq \delta \\ \delta(|r| - \frac{1}{2}\delta) & |r| > \delta
+				\end{cases}$
+		} & \parbox{3.5cm}{\vspace{2pt}Hybrid loss: quadratic for small residuals, linear for
+		large} & \parbox{8cm}{\vspace{2pt}
+				Robust to outliers while retaining efficiency for small errors. \\
+				\textbf{Closed-form:} No; solved by iterative reweighted least squares (IRLS); \\
+				\textbf{Cost:} iterative, $O(ndk)$
+				\vspace{4pt}
+		} \\
 		\hline
-		Quantile Regression & $\min_{\beta} \sum_{i=1}^n \rho_\tau(y_i - X_i\beta)$,
-		$\rho_\tau(r) = r(\tau - \mathbb{I}\{r < 0\})$ & Estimates conditional quantiles (e.g.,
-		median) & Useful for modeling heterogeneous effects and non-normal errors \\
+		Quantile Regression & \parbox{5cm}{
+				$\min_{\beta} \sum_{i=1}^n \rho_\tau(y_i - X_i\beta)$ \\
+				$\rho_\tau(r) = r(\tau - \mathbb{I}\{r < 0\})$
+		} & \parbox{3.5cm}{\vspace{2pt}Estimates conditional quantiles (e.g., median)} &
+		\parbox{8cm}{\vspace{2pt}
+				Useful for modeling heterogeneous effects and non-normal errors. \\
+				\textbf{Closed-form:} No; solved by linear programming; \\
+				\textbf{Cost:} iterative, $O(ndk)$
+				\vspace{4pt}
+		} \\
 		\hline
-		Principal Component Regression (PCR) & OLS on principal components of $X$ & Projects
-		predictors onto principal components before regression & Reduces dimensionality and
-		multicollinearity; interpretable in terms of variance explained \\
+		Principal Component Regression (PCR) & \parbox{5cm}{
+				OLS on principal components of $X$
+		} & \parbox{3.5cm}{\vspace{2pt}Projects predictors onto principal components before
+		regression} & \parbox{8cm}{\vspace{2pt}
+				Reduces dimensionality and multicollinearity; interpretable in terms of variance explained. \\
+				\textbf{Closed-form:} Yes (after PCA); \\
+				\textbf{Cost:} $O(nd^2 + d^3)$ for PCA and OLS
+				\vspace{4pt}
+		} \\
 		\hline
-		Partial Least Squares (PLS) & OLS on latent variables maximizing covariance between $X$
-		and $y$ & Finds components that explain both predictors and response & Useful when
-		predictors are highly collinear and $p > n$ \\
+		Partial Least Squares (PLS) & \parbox{5cm}{
+				OLS on latent variables maximizing covariance between $X$ and $y$
+		} & \parbox{3.5cm}{\vspace{2pt}Finds components that explain both predictors and
+		response} & \parbox{8cm}{\vspace{2pt}
+				Useful when predictors are highly collinear and $p > n$. \\
+				\textbf{Closed-form:} No; solved by iterative algorithms (NIPALS, SIMPLS); \\
+				\textbf{Cost:} iterative, $O(ndk)$
+				\vspace{4pt}
+		} \\
+		\hline
+		LOWESS/LOESS & \parbox{5cm}{
+				$\hat{y}_i = \sum_{j=1}^n w_{ij} y_j$ \\
+				$w_{ij}$: local weights from kernel
+		} & \parbox{3.5cm}{\vspace{2pt}Locally weighted scatterplot smoothing; fits simple
+		models to local neighborhoods} & \parbox{8cm}{\vspace{2pt}
+				Captures nonlinear trends without a global parametric form. \\
+				\textbf{Closed-form:} No; local weighted least squares at each point; \\
+				\textbf{Cost:} $O(n^2)$ for $n$ points
+				\vspace{4pt}
+		} \\
+		\hline
+		Kernel Regression (Nadaraya-Watson) & \parbox{5cm}{
+				$\hat{y}(x) = \frac{\sum_{i=1}^n K(x, x_i) y_i}{\sum_{i=1}^n K(x, x_i)}$
+		} & \parbox{3.5cm}{\vspace{2pt}Weighted average using a kernel function centered at
+		$x$} & \parbox{8cm}{\vspace{2pt}
+				Flexible, smooths data without assuming a parametric form. \\
+				\textbf{Closed-form:} No; direct computation for each $x$; \\
+				\textbf{Cost:} $O(n)$ per prediction
+				\vspace{4pt}
+		} \\
+		\hline
+		Spline Regression & \parbox{5cm}{
+				$\min_{f \in \mathcal{S}} \sum_{i=1}^n (y_i - f(x_i))^2 + \lambda \int (f''(x))^2 dx$
+		} & \parbox{3.5cm}{\vspace{2pt}Fits piecewise polynomials joined at knots; penalizes
+		roughness} & \parbox{8cm}{\vspace{2pt}
+				Models complex nonlinear relationships with smoothness control. \\
+				\textbf{Closed-form:} Yes (for smoothing splines); \\
+				\textbf{Cost:} $O(n)$ to $O(n^3)$ depending on method
+				\vspace{4pt}
+		} \\
+		\hline
+		k-Nearest Neighbors Regression & \parbox{5cm}{
+				$\hat{y}(x) = \frac{1}{k} \sum_{i \in N_k(x)} y_i$
+		} & \parbox{3.5cm}{\vspace{2pt}Averages the $k$ nearest neighbors' responses for
+		prediction} & \parbox{8cm}{\vspace{2pt}
+				Non-parametric, adapts to local data structure. \\
+				\textbf{Closed-form:} No; requires distance computation for each query; \\
+				\textbf{Cost:} $O(n)$ per prediction
+				\vspace{4pt}
+		} \\
 		\hline
 \end{longtable}
 
