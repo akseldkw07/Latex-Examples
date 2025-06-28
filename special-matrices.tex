@@ -20,37 +20,41 @@
 % Matrix Type Hierarchy Tree
 \begin{center}
   \begin{tikzpicture}[
-						level distance=3em, % Adjusted level distance
+						level distance=4em, % Adjusted level distance
 						every node/.style={font=\small},
-						sibling distance=8em, % Adjusted sibling distance
+						sibling distance=15em, % Adjusted sibling distance
 						edge from parent/.style={draw,-latex}
 				]
     \node (Matrix) {Matrix}
 				child { node (Symmetric) {Symmetric}
-						child { node (PSD) {PSD}
+						child { node (PSD) {PSD} [sibling distance=3em]
+								child { node [xshift=-0.3cm](Correlation) {Correlation} }
 								child { node (PD) {PD} }
+								child { node (Gram) [xshift=0.8cm]{Gram ($\mathbf{X}^\top\mathbf{X}$)} }
 						}
-						child { node (Diagonal) {Diagonal}
+						child { node (Diagonal) {Diagonal}[sibling distance=8em]
 								child { node [xshift=0.3cm](Identity) {Identity} }
+								child { node (EigenvalueMatrix) {Eigenvalue Matrix} }
 						}
 				}
-				child { node (Invertible) {Invertible}[sibling distance=20em]
-						child { node [xshift=0.8cm, yshift=-0.5cm](Orthogonal) {Orthogonal} }
-				}
-				child { node {Skew-Symmetric} }
-				child { node {Triangular} }
-				child { node {Idempotent} }
-				child { node {Nilpotent} };
+				child { node (Invertible) {Invertible} }
+				child { node [xshift=-3cm](Orthogonal) {Orthogonal}[sibling distance=5em]
+						child { node [xshift=-0.5cm](LeftOrthogonal) {Left Orth} }
+						child { node [xshift=0.5cm](RightOrthogonal) {Right Orth} }
+				};
+				% child { node {Skew-Symmetric} }
+				% child { node {Triangular} }
+				% child { node {Idempotent} };
+				% child { node {Nilpotent} };
 
     % Add arrows for overlaps
-    \draw[-latex]  (Invertible)-- (PD);
+    \draw[-latex] (Invertible) -- (PD);
     \draw[-latex] (Invertible) -- (Identity);
-    \draw[-latex] (Identity) -- (Orthogonal);
-    \draw[-latex] (Orthogonal) -- (Invertible);
+    \draw[-latex] (Diagonal) -- (Identity);
+    \draw[-latex] (Invertible) -- (Orthogonal);
 
   \end{tikzpicture}
   \vspace{0.5em}
-  \small{Arrows indicate subset or special case relationships. Additional arrows show overlaps.}
 \end{center}
 
 \begin{longtable}{|>{\bfseries}m{3.5cm}|m{5cm}|m{10.5cm}|}
@@ -88,18 +92,29 @@
 		- Rows and columns form an orthonormal set \newline
 		- Preserves lengths and angles \newline
 		- $\det(A) = \pm 1$ \\
+		\hline
+		Left Orthogonal & $A^T A = I$ (tall matrix, $n \geq d$) &
+		- Columns are orthonormal \newline
+		- $A^\dagger = A^T$ (left pseudoinverse) \newline
+		- Used when $A$ has full column rank \newline
+		- Condition: $\text{rank}(A) = d$ where $A \in \mathbb{R}^{n \times d}$ \\
+		\hline
+		Right Orthogonal & $A A^T = I$ (wide matrix, $n \leq d$) &
+		- Rows are orthonormal \newline
+		- $A^\dagger = A^T$ (right pseudoinverse) \newline
+		- Used when $A$ has full row rank \newline
+		- Condition: $\text{rank}(A) = n$ where $A \in \mathbb{R}^{n \times d}$ \\
 
 		\hline
 		Pseudoinverse (Moore--Penrose) & Generalized inverse $A^\dagger$
 		satisfying the four Penrose conditions &
 		- Always exists and is unique for any matrix \newline
-		- If $A \in \mathbb{R}^{m \times n}$ has full column rank ($m \ge
-		n$): \newline
-		\quad $A^\dagger = (A^T A)^{-1} A^T$, and $A^\dagger A = I_n$ \newline
-		- If $A$ has full row rank ($n \ge m$): \newline
-		\quad $A^\dagger = A^T (A A^T)^{-1}$, and $A A^\dagger = I_m$ \newline
-		- If $A$ is square and invertible: $A^\dagger = A^{-1}$ \newline
-		- Used in least-squares solutions and underdetermined systems \\
+		- \textbf{Full column rank} ($n \geq d$, $\text{rank}(A) = d$): \newline
+		\quad $A^\dagger = (A^T A)^{-1} A^T$ (left pseudoinverse) \newline
+		- \textbf{Full row rank} ($n \leq d$, $\text{rank}(A) = n$): \newline
+		\quad $A^\dagger = A^T (A A^T)^{-1}$ (right pseudoinverse) \newline
+		- \textbf{Square and invertible}: $A^\dagger = A^{-1}$ \newline
+		- \textbf{Rank deficient}: Computed via SVD decomposition \\
 
 		\hline
 		Positive Definite & $\vec{x}^T A \vec{x} > 0$ for all non-zero $\vec{x}$ &
@@ -156,6 +171,67 @@
 		\langle \vec{x}, \vec{y} \rangle$ \newline
 		- All eigenvalues lie on the unit circle: $|\lambda| = 1$ \newline
 		- Generalization of orthogonal matrices to complex space \\
+		\hline
+		Gram Matrix & $G = X^T X$ for some matrix $X$ &
+		- Always positive semi-definite \newline
+		- Symmetric by construction \newline
+		- Entries are inner products: $G_{ij} = \langle x_i, x_j \rangle$ \newline
+		- Used in least squares and quadratic forms \\
+		\hline
+		Eigenvalue Matrix & Matrix with known eigenvalues $\lambda_1, \ldots, \lambda_n$ &
+		- Can be diagonalized as $A = P\Lambda P^{-1}$ \newline
+		- $\Lambda$ is diagonal matrix of eigenvalues \newline
+		- $P$ contains corresponding eigenvectors as columns \newline
+		- Powers: $A^k = P\Lambda^k P^{-1}$ \\
+		\hline
+		Eigenvalue Matrix ($\Lambda$) & Diagonal matrix $\Lambda = \text{diag}(\lambda_1,
+		\ldots, \lambda_n)$ &
+		- Contains eigenvalues on the diagonal \newline
+		- Result of eigendecomposition/PCA \newline
+		- $\Lambda_{ii} = \lambda_i$, $\Lambda_{ij} = 0$ for $i \neq j$ \newline
+		- Used in spectral analysis and dimensionality reduction \\
+		\hline
+		Covariance Matrix & $\text{Cov}(X) = \frac{1}{n-1}(X - \mu)^T(X - \mu)$ &
+		- Always positive semi-definite \newline
+		- Symmetric by construction \newline
+		- Diagonal entries are variances \newline
+		- Off-diagonal entries are covariances \\
+		\hline
+		Correlation Matrix & Normalized covariance matrix with unit diagonal &
+		- Positive semi-definite \newline
+		- Symmetric with $\rho_{ii} = 1$ \newline
+		- Entries satisfy $-1 \leq \rho_{ij} \leq 1$ \newline
+		- Used in statistics and data analysis \\
+		\hline
+		Householder Matrix & $H = I - 2\frac{vv^T}{v^T v}$ for vector $v$ &
+		- Symmetric and orthogonal \newline
+		- $H^2 = I$ (involutory) \newline
+		- Reflects vectors across hyperplane \newline
+		- Used in QR decomposition \\
+		\hline
+		Permutation Matrix & Matrix with exactly one 1 in each row and column &
+		- Orthogonal matrix \newline
+		- Determinant is $\pm 1$ \newline
+		- Reorders rows/columns when multiplied \newline
+		- $P^T P = I$ and $P^{-1} = P^T$ \\
+		\hline
+		Circulant Matrix & Each row is cyclic shift of previous row &
+		- Diagonalized by Discrete Fourier Transform \newline
+		- Eigenvalues given by DFT of first row \newline
+		- Used in signal processing \newline
+		- Fast matrix-vector multiplication via FFT \\
+		\hline
+		Toeplitz Matrix & Constant along each diagonal: $a_{ij} = a_{i-j}$ &
+		- Determined by $2n-1$ parameters \newline
+		- Includes circulant matrices as special case \newline
+		- Used in time series and signal processing \newline
+		- Fast algorithms available for solving systems \\
+		\hline
+		Hankel Matrix & Constant along each anti-diagonal: $a_{ij} = a_{i+j}$ &
+		- Symmetric if square \newline
+		- Related to Toeplitz matrices \newline
+		- Used in system identification \newline
+		- Connection to moment problems \\
 		\hline
 
 \end{longtable}
