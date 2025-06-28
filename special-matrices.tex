@@ -6,6 +6,8 @@
 \usepackage{longtable}
 \usepackage{tikz-cd}
 \usepackage{tikz}
+\usepackage{macros}
+
 % Add libraries for positioning and arrows
 \usetikzlibrary{trees, positioning, arrows}
 \usepackage{changepage} % For margin adjustments
@@ -30,7 +32,7 @@
 						child { node (PSD) {PSD} [sibling distance=3em]
 								child { node [xshift=-0.3cm](Correlation) {Correlation} }
 								child { node (PD) {PD} }
-								child { node (Gram) [xshift=0.8cm]{Gram ($\mathbf{X}^\top\mathbf{X}$)} }
+								child { node (Gram) [xshift=0.8cm]{Gram ($\bX^\top\bX$)} }
 						}
 						child { node (Diagonal) {Diagonal}[sibling distance=8em]
 								child { node [xshift=0.3cm](Identity) {Identity} }
@@ -39,7 +41,7 @@
 				}
 				child { node (Invertible) {Invertible} }
 				child { node [xshift=-3cm](Orthogonal) {Orthogonal}[sibling distance=8em]
-						child { node [xshift=-0.5cm](LeftOrthogonal) {Left Orth $\mathbf{A}^\top \mathbf{A}
+						child { node [xshift=-0.5cm](LeftOrthogonal) {Left Orth $\bA^\top \mathbf{A}
 								= \mathbf{I}$}
 								child { node (Leftpseudoinverse) {$A^\dagger$: $n > d$} }
 						}
@@ -74,6 +76,8 @@
 		- $A^k$ is diagonal with entries raised to $k$ \\
 		\hline
 		Symmetric & $A = A^T$, i.e., $a_{ij} = a_{ji}$ &
+		- $x^T A x = (A x)^T x$ for all $x$ if $A$ is symmetric \newline
+		- $\bv$
 		- All eigenvalues are real \newline
 		- Eigenvectors for distinct eigenvalues are orthogonal \newline
 		- Diagonalizable via orthogonal matrices \\
