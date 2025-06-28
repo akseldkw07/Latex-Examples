@@ -30,9 +30,10 @@
     \node (Matrix) {Matrix}
 				child { node (Symmetric) {Symmetric}
 						child { node (PSD) {PSD} [sibling distance=3em]
-								child { node [xshift=-0.3cm](Correlation) {Correlation} }
-								child { node (PD) {PD} }
-								child { node (Gram) [xshift=0.8cm]{Gram ($\bX^\top\bX$)} }
+								child { node (Gram) {Gram ($\bX^\top\bX$)}
+										child { node (Correlation) {Correlation} }
+								}
+								child { node [xshift=0.8cm](PD) {PD} }
 						}
 						child { node (Diagonal) {Diagonal}[sibling distance=8em]
 								child { node [xshift=0.3cm](Identity) {Identity} }
@@ -73,7 +74,7 @@
 		Diagonal & $a_{ij} = 0$ for $i \ne j$ &
 		- Determinant is product of diagonal entries \newline
 		- Eigenvalues are diagonal entries \newline
-		- $A^k$ is diagonal with entries raised to $k$ \\
+		- $\bA^k$ is diagonal with entries raised to $k$ \\
 		\hline
 		Symmetric & $\bA = \bA^T$, i.e., $a_{ij} = a_{ji}$ &
 		- $\bx^T \bA \bx = (\bA \bx)^T \bx$ for all $\bx$ if $\bA$ is symmetric \newline
@@ -82,61 +83,61 @@
 		- Eigenvectors for distinct eigenvalues are orthogonal \newline
 		- Diagonalizable via orthogonal matrices \\
 		\hline
-		Identity ($I$) & $I_{ij} = \delta_{ij}$ &
-		- $AI = IA = A$ \newline
-		- $I^{-1} = I$ \newline
+		Identity ($\bI$) & $\bI_{ij} = \delta_{ij}$ &
+		- $\bA\bI = \bI\bA = \bA$ \newline
+		- $\bI^{-1} = \bI$ \newline
 		- All eigenvalues are 1 \\
 		\hline
-		Invertible (Non-singular) & Exists $A^{-1}$ such that $AA^{-1} =
-		A^{-1}A = I$ &
-		- $\det(A) \ne 0$ \newline
+		Invertible (Non-singular) & Exists $\bA^{-1}$ such that $\bA\bA^{-1} =
+		\bA^{-1}\bA = \bI$ &
+		- $\det(\bA) \ne 0$ \newline
 		- Linearly independent rows and columns \newline
 		- No zero eigenvalues \\
 		\hline
-		Singular & A square matrix with $\det(A) = 0$ &
+		Singular & A square matrix with $\det(\bA) = 0$ &
 		- Not invertible \newline
 		- May have linearly dependent rows or columns \newline
 		- At least one zero eigenvalue \\
 		\hline
-		Orthogonal & $A^{-1} = A^T$, so $A^T A = I$ &
+		Orthogonal & $\bA^{-1} = \bA^T$, so $\bA^T \bA = \bI$ &
 		- Rows and columns form an orthonormal set \newline
 		- Preserves lengths and angles \newline
-		- $\det(A) = \pm 1$ \\
+		- $\det(\bA) = \pm 1$ \\
 		\hline
-		Left Orthogonal & $A^T A = I$ (tall matrix, $n \geq d$) &
+		Left Orthogonal & $\bA^T \bA = \bI$ (tall matrix, $n \geq d$) &
 		- Columns are orthonormal \newline
-		- $A^\dagger = A^T$ (left pseudoinverse) \newline
-		- Used when $A$ has full column rank \newline
-		- Condition: $\text{rank}(A) = d$ where $A \in \mathbb{R}^{n \times d}$ \\
+		- $\bA^\dagger = \bA^T$ (left pseudoinverse) \newline
+		- Used when $\bA$ has full column rank \newline
+		- Condition: $\text{rank}(\bA) = d$ where $\bA \in \mathbb{R}^{n \times d}$ \\
 		\hline
-		Right Orthogonal & $A A^T = I$ (wide matrix, $n \leq d$) &
+		Right Orthogonal & $\bA \bA^T = \bI$ (wide matrix, $n \leq d$) &
 		- Rows are orthonormal \newline
-		- $A^\dagger = A^T$ (right pseudoinverse) \newline
-		- Used when $A$ has full row rank \newline
-		- Condition: $\text{rank}(A) = n$ where $A \in \mathbb{R}^{n \times d}$ \\
+		- $\bA^\dagger = \bA^T$ (right pseudoinverse) \newline
+		- Used when $\bA$ has full row rank \newline
+		- Condition: $\text{rank}(\bA) = n$ where $\bA \in \mathbb{R}^{n \times d}$ \\
 
 		\hline
-		Pseudoinverse (Moore--Penrose) & Generalized inverse $A^\dagger$
+		Pseudoinverse (Moore--Penrose) & Generalized inverse $\bA^\dagger$
 		satisfying the four Penrose conditions &
 		- Always exists and is unique for any matrix \newline
-		- \textbf{Full column rank} ($n \geq d$, $\text{rank}(A) = d$): \newline
-		\quad $A^\dagger = (A^T A)^{-1} A^T$ (left pseudoinverse) \newline
-		- \textbf{Full row rank} ($n \leq d$, $\text{rank}(A) = n$): \newline
-		\quad $A^\dagger = A^T (A A^T)^{-1}$ (right pseudoinverse) \newline
-		- \textbf{Square and invertible}: $A^\dagger = A^{-1}$ \newline
+		- \textbf{Full column rank} ($n \geq d$, $\text{rank}(\bA) = d$): \newline
+		\quad $\bA^\dagger = (\bA^T \bA)^{-1} \bA^T$ (left pseudoinverse) \newline
+		- \textbf{Full row rank} ($n \leq d$, $\text{rank}(\bA) = n$): \newline
+		\quad $\bA^\dagger = \bA^T (\bA \bA^T)^{-1}$ (right pseudoinverse) \newline
+		- \textbf{Square and invertible}: $\bA^\dagger = \bA^{-1}$ \newline
 		- \textbf{Rank deficient}: Computed via SVD decomposition \\
 
 		\hline
-		Positive Definite & $\bx^T A \bx > 0$ for all non-zero $\bx$ &
+		Positive Definite & $\bx^T \bA \bx > 0$ for all non-zero $\bx$ &
 		- All eigenvalues are positive \newline
-		- $\det(A) > 0$ \newline
+		- $\det(\bA) > 0$ \newline
 		- Invertible \\
 		\hline
-		Positive Semi-Definite & $A = A^T$, $\bx^T A \bx \ge 0$ for all $\bx$ &
+		Positive Semi-Definite & $\bA = \bA^T$, $\bx^T \bA \bx \ge 0$ for all $\bx$ &
 		- All eigenvalues are non-negative \newline
-		- $\det(A) \ge 0$ \newline
+		- $\det(\bA) \ge 0$ \newline
 		- Always symmetric \newline
-		- Can always be written as $X^T X$ for some $X$ (Gram matrix) \newline
+		- Can always be written as $\bX^T \bX$ for some $\bX$ (Gram matrix) \newline
 		- Defines a semi-inner product \\
 		\hline
 		Triangular (Upper / Lower) &
@@ -145,22 +146,22 @@
 		- Eigenvalues are diagonal entries \newline
 		- Solves systems efficiently via substitution \\
 		\hline
-		Skew-Symmetric & $A = -A^T$, so $a_{ii} = 0$ &
+		Skew-Symmetric & $\bA = -\bA^T$, so $a_{ii} = 0$ &
 		- Eigenvalues are 0 or purely imaginary \newline
-		- $\bx^T A \bx = 0$ for all $\bx$ \\
+		- $\bx^T \bA \bx = 0$ for all $\bx$ \\
 		\hline
-		Idempotent & $A^2 = A$ &
+		Idempotent & $\bA^2 = \bA$ &
 		- Used in projection operations \newline
 		- Eigenvalues are 0 or 1 \\
 		\hline
-		Nilpotent & $A^k = 0$ for some $k \in \mathbb{N}$ &
+		Nilpotent & $\bA^k = 0$ for some $k \in \mathbb{N}$ &
 		- All eigenvalues are 0 \\
 		\hline
-		Orthogonal Projection & Linear transformation $P$ where $P^2 = P$
-		and $P = P^T$ &
+		Orthogonal Projection & Linear transformation $\bp$ where $\bp^2 = \bp$
+		and $\bp = \bp^T$ &
 		- Projects onto a subspace along its orthogonal complement \newline
 		- Minimizes distance to the subspace (best approximation) \newline
-		- $\text{Im}(P)$ is a subspace; $\text{Ker}(P) = \text{Im}(I - P)$ \\
+		- $\text{Im}(\bp)$ is a subspace; $\text{Ker}(\bp) = \text{Im}(\bI - \bp)$ \\
 		\hline
 		Linear Map (Transformation) & Function $T: V \rightarrow W$
 		satisfying $T(a\bx + b\by) = aT(\bx) + bT(\by)$ &
@@ -169,39 +170,39 @@
 		- Kernel and image define fundamental subspaces \\
 		\hline
 		Fundamental Subspaces & Column space, row space, null space, left null space &
-		- Column space: span of columns (range of $A$) \newline
-		- Row space: span of rows = col space of $A^T$ \newline
-		- Null space: solutions to $A\bx = 0$ \newline
-		- Left null space: null space of $A^T$ \\
+		- Column space: span of columns (range of $\bA$) \newline
+		- Row space: span of rows = col space of $\bA^T$ \newline
+		- Null space: solutions to $\bA\bx = 0$ \newline
+		- Left null space: null space of $\bA^T$ \\
 		\hline
-		Unitary & $U^\dagger = U^{-1}$, where $U^\dagger$ is the conjugate
-		transpose of $U$ &
-		- $U^\dagger U = U U^\dagger = I$ \newline
-		- Preserves inner products: $\langle U\bx, U\by \rangle =
+		Unitary & $\bU^\dagger = \bU^{-1}$, where $\bU^\dagger$ is the conjugate
+		transpose of $\bU$ &
+		- $\bU^\dagger \bU = \bU \bU^\dagger = \bI$ \newline
+		- Preserves inner products: $\langle \bU\bx, \bU\by \rangle =
 		\langle \bx, \by \rangle$ \newline
 		- All eigenvalues lie on the unit circle: $|\lambda| = 1$ \newline
 		- Generalization of orthogonal matrices to complex space \\
 		\hline
-		Gram Matrix & $G = X^T X$ for some matrix $X$ &
+		Gram Matrix & $\bG = \bX^T \bX$ for some matrix $\bX$ &
 		- Always positive semi-definite \newline
 		- Symmetric by construction \newline
-		- Entries are inner products: $G_{ij} = \langle x_i, x_j \rangle$ \newline
+		- Entries are inner products: $G_{ij} = \langle \bx_i, \bx_j \rangle$ \newline
 		- Used in least squares and quadratic forms \\
 		\hline
 		Eigenvalue Matrix & Matrix with known eigenvalues $\lambda_1, \ldots, \lambda_n$ &
-		- Can be diagonalized as $A = P\Lambda P^{-1}$ \newline
-		- $\Lambda$ is diagonal matrix of eigenvalues \newline
-		- $P$ contains corresponding eigenvectors as columns \newline
-		- Powers: $A^k = P\Lambda^k P^{-1}$ \\
+		- Can be diagonalized as $\bA = \bp\bLam \bp^{-1}$ \newline
+		- $\bLam$ is diagonal matrix of eigenvalues \newline
+		- $\bp$ contains corresponding eigenvectors as columns \newline
+		- Powers: $\bA^k = \bp\bLam^k \bp^{-1}$ \\
 		\hline
-		Eigenvalue Matrix ($\Lambda$) & Diagonal matrix $\Lambda = \text{diag}(\lambda_1,
+		Eigenvalue Matrix ($\bLam$) & Diagonal matrix $\bLam = \text{diag}(\lambda_1,
 		\ldots, \lambda_n)$ &
 		- Contains eigenvalues on the diagonal \newline
 		- Result of eigendecomposition/PCA \newline
-		- $\Lambda_{ii} = \lambda_i$, $\Lambda_{ij} = 0$ for $i \neq j$ \newline
+		- $\bLam_{ii} = \lambda_i$, $\bLam_{ij} = 0$ for $i \neq j$ \newline
 		- Used in spectral analysis and dimensionality reduction \\
 		\hline
-		Covariance Matrix & $\text{Cov}(X) = \frac{1}{n-1}(X - \mu)^T(X - \mu)$ &
+		Covariance Matrix & $\text{Cov}(\bX) = \frac{1}{n-1}(\bX - \mu)^T(\bX - \mu)$ &
 		- Always positive semi-definite \newline
 		- Symmetric by construction \newline
 		- Diagonal entries are variances \newline
