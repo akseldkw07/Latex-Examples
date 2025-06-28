@@ -41,12 +41,12 @@
 				}
 				child { node (Invertible) {Invertible} }
 				child { node [xshift=-3cm](Orthogonal) {Orthogonal}[sibling distance=8em]
-						child { node [xshift=-0.5cm](LeftOrthogonal) {Left Orth $\bA^\top \mathbf{A}
-								= \mathbf{I}$}
+						child { node [xshift=-0.5cm](LeftOrthogonal) {Left Orth $\bA^\top \bA
+								= \bI$}
 								child { node (Leftpseudoinverse) {$A^\dagger$: $n > d$} }
 						}
-						child { node [xshift=0.5cm](RightOrthogonal) {Right Orth $\mathbf{A}
-								\mathbf{A}^\top = \mathbf{I}$}
+						child { node [xshift=0.5cm](RightOrthogonal) {Right Orth $\bA
+								\bA^\top = \bI$}
 								child { node (Rightpseudoinverse) {$A^\dagger$: $n < d$} }
 						}
 				};
@@ -75,9 +75,9 @@
 		- Eigenvalues are diagonal entries \newline
 		- $A^k$ is diagonal with entries raised to $k$ \\
 		\hline
-		Symmetric & $A = A^T$, i.e., $a_{ij} = a_{ji}$ &
-		- $x^T A x = (A x)^T x$ for all $x$ if $A$ is symmetric \newline
-		- $\bv$
+		Symmetric & $\bA = \bA^T$, i.e., $a_{ij} = a_{ji}$ &
+		- $\bx^T \bA \bx = (\bA \bx)^T \bx$ for all $\bx$ if $\bA$ is symmetric \newline
+		- $\bv^\top \bA \bv \leq \lambda_{\max}(\bA) \|\bv\|^2$ \newline
 		- All eigenvalues are real \newline
 		- Eigenvectors for distinct eigenvalues are orthogonal \newline
 		- Diagonalizable via orthogonal matrices \\
@@ -127,12 +127,12 @@
 		- \textbf{Rank deficient}: Computed via SVD decomposition \\
 
 		\hline
-		Positive Definite & $\vec{x}^T A \vec{x} > 0$ for all non-zero $\vec{x}$ &
+		Positive Definite & $\bx^T A \bx > 0$ for all non-zero $\bx$ &
 		- All eigenvalues are positive \newline
 		- $\det(A) > 0$ \newline
 		- Invertible \\
 		\hline
-		Positive Semi-Definite & $A = A^T$, $\vec{x}^T A \vec{x} \ge 0$ for all $\vec{x}$ &
+		Positive Semi-Definite & $A = A^T$, $\bx^T A \bx \ge 0$ for all $\bx$ &
 		- All eigenvalues are non-negative \newline
 		- $\det(A) \ge 0$ \newline
 		- Always symmetric \newline
@@ -147,7 +147,7 @@
 		\hline
 		Skew-Symmetric & $A = -A^T$, so $a_{ii} = 0$ &
 		- Eigenvalues are 0 or purely imaginary \newline
-		- $\vec{x}^T A \vec{x} = 0$ for all $\vec{x}$ \\
+		- $\bx^T A \bx = 0$ for all $\bx$ \\
 		\hline
 		Idempotent & $A^2 = A$ &
 		- Used in projection operations \newline
@@ -163,7 +163,7 @@
 		- $\text{Im}(P)$ is a subspace; $\text{Ker}(P) = \text{Im}(I - P)$ \\
 		\hline
 		Linear Map (Transformation) & Function $T: V \rightarrow W$
-		satisfying $T(a\vec{x} + b\vec{y}) = aT(\vec{x}) + bT(\vec{y})$ &
+		satisfying $T(a\bx + b\by) = aT(\bx) + bT(\by)$ &
 		- Represented by a matrix in finite dimensions \newline
 		- Preserves linear structure \newline
 		- Kernel and image define fundamental subspaces \\
@@ -171,14 +171,14 @@
 		Fundamental Subspaces & Column space, row space, null space, left null space &
 		- Column space: span of columns (range of $A$) \newline
 		- Row space: span of rows = col space of $A^T$ \newline
-		- Null space: solutions to $A\vec{x} = 0$ \newline
+		- Null space: solutions to $A\bx = 0$ \newline
 		- Left null space: null space of $A^T$ \\
 		\hline
 		Unitary & $U^\dagger = U^{-1}$, where $U^\dagger$ is the conjugate
 		transpose of $U$ &
 		- $U^\dagger U = U U^\dagger = I$ \newline
-		- Preserves inner products: $\langle U\vec{x}, U\vec{y} \rangle =
-		\langle \vec{x}, \vec{y} \rangle$ \newline
+		- Preserves inner products: $\langle U\bx, U\by \rangle =
+		\langle \bx, \by \rangle$ \newline
 		- All eigenvalues lie on the unit circle: $|\lambda| = 1$ \newline
 		- Generalization of orthogonal matrices to complex space \\
 		\hline
