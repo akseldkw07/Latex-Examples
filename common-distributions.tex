@@ -127,6 +127,14 @@
   No direct convergence, but approximates exponential in continuous limit \\
   \hline
 
+		Multinomial & $X \sim \mathrm{Mult}(n; p_1, \dots, p_k)$ &
+  PMF: $\frac{n!}{x_1! \cdots x_k!} p_1^{x_1} \cdots p_k^{x_k}$ \newline
+  CDF: Not typically defined (multivariate) &
+  Generalization of binomial for >2 outcomes; used in NLP, categorical modeling &
+		Each marginal binomial can approximate normal; joint distribution approaches
+		multivariate normal \\
+  \hline
+
   Uniform (continuous) & $X \sim \mathcal{U}(a, b)$ &
   PDF: $\frac{1}{b - a}$ for $x \in [a, b]$ \newline
   CDF: $\frac{x - a}{b - a}$ &
