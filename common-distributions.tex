@@ -135,6 +135,13 @@
   No direct convergence, but approximates exponential in continuous limit \\
   \hline
 
+		Pareto & $X \sim \mathrm{Pareto}(x_m, \alpha)$ &
+  PDF: $\frac{\alpha x_m^\alpha}{x^{\alpha + 1}}$ for $x \ge x_m$ \newline
+  CDF: $1 - \left(\frac{x_m}{x}\right)^\alpha$ &
+  Models wealth, file sizes, failure rates with heavy tails; used in economics and risk &
+  Heavy-tailed; diverges from normal; tails decay more slowly \\
+  \hline
+
   Uniform (continuous) & $X \sim \mathcal{U}(a, b)$ &
   PDF: $\frac{1}{b - a}$ for $x \in [a, b]$ \newline
   CDF: $\frac{x - a}{b - a}$ &
