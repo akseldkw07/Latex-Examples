@@ -93,6 +93,14 @@
   No direct convergence, but appears in normalized transformations \\
   \hline
 
+		Multinomial & $X \sim \mathrm{Mult}(n; p_1, \dots, p_k)$ &
+  PMF: $\frac{n!}{x_1! \cdots x_k!} p_1^{x_1} \cdots p_k^{x_k}$ \newline
+  CDF: Not typically defined (multivariate) &
+  Generalization of binomial for >2 outcomes; used in NLP, categorical modeling &
+		Each marginal binomial can approximate normal; joint distribution approaches
+		multivariate normal \\
+  \hline
+
   Chi-Square & $X \sim \chi^2_k$ &
   PDF: $\frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2 - 1} e^{-x/2}$ \newline
   CDF: $\frac{\gamma(k/2, x/2)}{\Gamma(k/2)}$ &
