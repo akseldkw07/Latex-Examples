@@ -1,0 +1,55 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=0.75in, left=0.1in]{geometry}
+\usepackage{longtable}
+\usepackage{helvet}
+\usepackage{array}
+\usepackage{macros}
+
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\arraystretch}{1.4}
+
+\setlength{\tabcolsep}{6pt}
+\pagestyle{empty}
+
+\begin{document}
+\begin{center}
+  \section*{K-Fold Cross Validation Summary}
+\end{center}
+\noindent
+\begin{longtable}{|>{\bfseries}m{3cm}|p{13cm}|}
+  \hline
+  \textbf{Feature} & \textbf{K-Fold Cross Validation} \\
+  \hline
+  \endfirsthead
+  \hline
+  \multicolumn{2}{|r|}{\textit{Table continued from previous page}} \\
+  \hline
+  \textbf{Feature} & \textbf{K-Fold Cross Validation} \\
+  \hline
+  \endhead
+  \hline
+  \multicolumn{2}{|r|}{\textit{Continued on next page}} \\
+  \hline
+  \endfoot
+  \hline
+  \endlastfoot
+
+		Definition & A model validation technique that splits the dataset into $k$ equal (or
+		nearly equal) parts ("folds"). The model is trained $k$ times, each time using $k-1$
+		folds for training and the remaining fold for validation. The final performance metric
+		is averaged over all $k$ runs. \\
+  \hline
+		Purpose & To assess model generalization and reduce variance in performance estimates
+		by using multiple train/validation splits. \\
+  \hline
+		Process & 1. Shuffle the dataset. 2. Split into $k$ folds. 3. For each fold: train on
+		$k-1$ folds, validate on the remaining fold. 4. Aggregate the results. \\
+  \hline
+		Output & An average performance metric (e.g., accuracy, RMSE) across all $k$ folds,
+		providing a more robust estimate of model performance. \\
+  \hline
+
+\end{longtable}
+
+\end{document}
