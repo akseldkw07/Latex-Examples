@@ -68,7 +68,7 @@
 
 \begin{longtable}{|>{\bfseries}m{3.5cm}|m{5cm}|m{10.5cm}|}
 		\hline
-		\textbf{Term} & \textbf{Definition} & \textbf{Unique Attributes /
+		\tbf{Term} & \tbf{Definition} & \tbf{Unique Attributes /
 		Key Properties} \\
 		\hline
 		Diagonal & $a_{ij} = 0$ for $i \ne j$ &
@@ -96,7 +96,7 @@
 		\hline
 		Singular & A square matrix with $\det(\bA) = 0$ &
 		- Not invertible \newline
-		- May have linearly dependent rows or columns \newline
+		- Linearly dependent rows or columns \newline
 		- At least one zero eigenvalue \\
 		\hline
 		Orthogonal & $\bA^{-1} = \bA^T$, so $\bA^T \bA = \bI$ &
@@ -120,17 +120,20 @@
 		Pseudoinverse (Moore--Penrose) & Generalized inverse $\bA^\dagger$
 		satisfying the four Penrose conditions &
 		- Always exists and is unique for any matrix \newline
-		- \textbf{Full column rank} ($n \geq d$, $\text{rank}(\bA) = d$): \newline
+		- \tbf{Full column rank} ($n \geq d$, $\text{rank}(\bA) = d$): \newline
 		\quad $\bA^\dagger = (\bA^T \bA)^{-1} \bA^T$ (left pseudoinverse) \newline
-		- \textbf{Full row rank} ($n \leq d$, $\text{rank}(\bA) = n$): \newline
+		- \tbf{Full row rank} ($n \leq d$, $\text{rank}(\bA) = n$): \newline
 		\quad $\bA^\dagger = \bA^T (\bA \bA^T)^{-1}$ (right pseudoinverse) \newline
-		- \textbf{Square and invertible}: $\bA^\dagger = \bA^{-1}$ \newline
-		- \textbf{Rank deficient}: Computed via SVD decomposition \\
+		- \tbf{Square and invertible}: $\bA^\dagger = \bA^{-1}$ \newline
+		- \tbf{Rank deficient}: Computed via SVD decomposition \\
 
 		\hline
 		Positive Definite & $\bx^T \bA \bx > 0$ for all non-zero $\bx$ &
 		- All eigenvalues are positive \newline
 		- $\det(\bA) > 0$ \newline
+		- Always defines an inner product: for any PD matrix, there exists a unique inner product \newline
+		- For any inner product, there exists a PD matrix $\bA$ such that $\langle \bx, \by
+		\rangle = \bx^T \bA \by$ \newline
 		- Invertible \\
 		\hline
 		Positive Semi-Definite & $\bA = \bA^T$, $\bx^T \bA \bx \ge 0$ for all $\bx$ &
@@ -202,7 +205,8 @@
 		- $\bLam_{ii} = \lambda_i$, $\bLam_{ij} = 0$ for $i \neq j$ \newline
 		- Used in spectral analysis and dimensionality reduction \\
 		\hline
-		Covariance Matrix & $\text{Cov}(\bX) = \frac{1}{n-1}(\bX - \mu)^T(\bX - \mu)$ &
+		Covariance Matrix & $\text{Cov}(\bX) = \frac{1}{n-1}(\bX - \mu)^T(\bX - \mu)$ \newline
+		(unbiased) &
 		- Always positive semi-definite \newline
 		- Symmetric by construction \newline
 		- Diagonal entries are variances \newline
