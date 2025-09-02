@@ -1,132 +1,16 @@
 \documentclass[10pt]{article}
-\usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb}
-\usepackage[landscape, margin=0.15in]{geometry} % Very small margin as per your previous preference
-\usepackage{longtable} % For tables that can span multiple pages
-\usepackage{helvet} % For sans-serif font
-\usepackage{array} % For custom column types
-\usepackage{enumitem} % For compact lists within table cells
-\usepackage{graphicx} % Needed for \resizebox if ever used, but not for this current solution
+\usepackage[margin=0.2in]{geometry}
+\usepackage{longtable}
+\usepackage{helvet}
+\usepackage{array}
+\usepackage{macros}
 
-% Redefine default font to sans-serif
 \renewcommand{\familydefault}{\sfdefault}
-% Adjust vertical spacing between rows in tables
 \renewcommand{\arraystretch}{1.4}
-% Adjust horizontal spacing between columns in tables (already quite small)
-\setlength{\tabcolsep}{4pt} % Reduced from 8pt to make columns tighter
-
-% Define a new column type for left-aligned paragraph text within table cells
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\tabcolsep}{4pt}
 
 \begin{document}
-
-\section*{Statistical Test Comparison}
-
-\noindent\footnotesize % Reduce font size for the entire table to help it fit horizontally
-
-\begin{longtable}{|L{3.8cm}|L{3.0cm}|L{3.0cm}|L{3.0cm}|L{3.0cm}|L{3.0cm}|L{3.0cm}|L{3.0cm}|}
-		% Column widths adjusted to fill page width
-		% --- Header for the very first page of the table ---
-		\hline
-		\textbf{Feature / Test} & \textbf{Durbin-Watson (DW) Test} & \textbf{Breusch-Godfrey
-		(BG) Test} & \textbf{Breusch-Pagan (BP) Test} & \textbf{White Test} &
-		\textbf{Jarque-Bera (JB) Test} & \textbf{Shapiro-Wilk (SW) Test} & \textbf{Variance
-		Inflation Factor (VIF)} \\
-		\hline
-		\endfirsthead
-
-		% --- Header for all subsequent pages of the table ---
-		\hline
-		\multicolumn{8}{|r|}{\textit{Table continued from previous page}} \\
-		\hline
-		\textbf{Feature / Test} & \textbf{Durbin-Watson (DW) Test} & \textbf{Breusch-Godfrey
-		(BG) Test} & \textbf{Breusch-Pagan (BP) Test} & \textbf{White Test} &
-		\textbf{Jarque-Bera (JB) Test} & \textbf{Shapiro-Wilk (SW) Test} & \textbf{Variance
-		Inflation Factor (VIF)} \\
-		\hline
-		\endhead
-
-		% --- Footer for pages *before* the last page of the table ---
-		\hline
-		\multicolumn{8}{|r|}{\textit{Continued on next page}} \\
-		\endfoot
-
-		% --- Footer for the very last page of the table ---
-		\hline
-		\multicolumn{8}{|r|}{\textit{End of table}} \\
-		\endlastfoot
-
-		% --- Table Body Starts Here ---
-		Purpose & Detect 1st-order autocorrelation in regression residuals. & Detect
-		higher-order autocorrelation in regression residuals. & Detect heteroscedasticity
-		(non-constant variance of errors). & Detect general heteroscedasticity. & Test for
-		normality of residuals (based on skewness \& kurtosis). & Test for normality of
-		residuals (general goodness-of-fit). & Quantify multicollinearity (how much variance of
-		a coefficient is inflated). \\
-		\hline
-		$H_0$ (Null Hypothesis) & No 1st-order autocorrelation. & No autocorrelation up to
-		specified order $p$. & Homoscedasticity (constant error variance). & Homoscedasticity
-		(constant error variance). & Residuals are normally distributed. & Residuals are
-		normally distributed. & (Diagnostic, no formal $H_0$) \\
-		\hline
-		$H_1$ (Alternative Hypothesis) & Positive or negative 1st-order autocorrelation. &
-		Autocorrelation exists. & Heteroscedasticity exists. & Heteroscedasticity exists. &
-		Residuals are not normally distributed. & Residuals are not normally distributed. &
-		(Diagnostic, no formal $H_1$) \\
-		\hline
-		Test Statistic Range & 0 to 4 & Typically $\chi^2$ (Chi-squared) distributed. &
-		$\chi^2$ distributed. & $\chi^2$ distributed. & $\chi^2$ distributed. & 0 to 1 & $\ge 1$ \\
-		\hline
-		Interpretation / Cutoff &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item $\approx 2$: No autocorrelation.
-				\item $< 2$: Positive autocorrelation.
-				\item $> 2$: Negative autocorrelation.
-				\item Exact cutoffs depend on $n$ and $k$ (use tables).
-		\end{itemize} &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item Compare p-value to $\alpha$.
-				\item If p-value $<\alpha$, reject $H_0$.
-		\end{itemize} &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item Compare p-value to $\alpha$.
-				\item If p-value $<\alpha$, reject $H_0$.
-		\end{itemize} &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item Compare p-value to $\alpha$.
-				\item If p-value $<\alpha$, reject $H_0$.
-		\end{itemize} &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item Compare p-value to $\alpha$.
-				\item If p-value $<\alpha$, reject $H_0$.
-		\end{itemize} &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item Compare p-value to $\alpha$.
-				\item If p-value $<\alpha$, reject $H_0$.
-				\item (Higher p-value means more evidence for normality)
-		\end{itemize} &
-		\begin{itemize}[nosep, leftmargin=*, topsep=0pt, partopsep=0pt]
-				\item $\approx 1$: No multicollinearity.
-				\item $1 < \text{VIF} < 5$: Moderate.
-				\item $\ge 5$ or $\ge 10$: Significant multicollinearity.
-		\end{itemize} \\
-		\hline
-		Common Use Cases/Context & Time series regression (checks for AR(1) errors). & Time
-		series regression (more general than DW, handles AR(p) and MA(p) errors, lagged
-		dependent variables). & Cross-sectional regression, time series regression. &
-		Cross-sectional regression, time series regression (more robust to model
-		misspecification than BP). & Checks assumption for OLS inference; often used after
-		fitting. & Checks assumption for OLS inference; generally preferred for smaller
-		samples. & Identifying problematic predictor variables in multiple regression. \\
-		\hline
-		Limitations & Only for 1st-order AR errors, doesn't work with lagged dependent
-		variables. & Can be sensitive to model misspecification. & Can be sensitive to model
-		misspecification. & Can be less powerful than BP if BP's assumptions hold; doesn't
-		indicate source of heteroscedasticity. & Sensitive to sample size (often rejects for
-		large $n$ even with minor non-normality). & Less powerful than JB for large samples;
-		specific to normality. & Only detects linear relationships; doesn't fix
-		multicollinearity, only identifies it. \\
-		\hline
-\end{longtable}
+$$E[N] = 52 \times H_{52}$$$$E[N] = 52 \times 4.52845014$$$$E[N] \approx 235.4794$$
 
 \end{document}
