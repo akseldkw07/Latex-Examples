@@ -1,0 +1,135 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,mathtools,geometry}
+\geometry{margin=1in}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+
+\title{A Quick Guide to Markov, Chebyshev, Hoeffding, and Chernoff Inequalities}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\textbf{Setup.} All random variables are defined on a common probability space.
+Write $\mathbb{E}$ for expectation, $\mathrm{Var}$ for variance, and
+$\mathbb{P}$ for probability. For sums, we often take $X=\sum_{i=1}^n X_i$ with the $X_i$
+independent.
+
+\section{Markov's Inequality}
+\textbf{Statement.} If $X\ge 0$ and $a>0$, then
+\[
+		\mathbb{P}(X \ge a) \le \frac{\mathbb{E}[X]}{a}.
+\]
+
+\textbf{Proof (one line).} Since $X\ge a\cdot \mathbf{1}\{X\ge a\}$,
+taking expectations gives $\mathbb{E}[X]\ge a\,\mathbb{P}(X\ge a)$.
+
+\textbf{Use.} Requires only nonnegativity and a finite mean. It’s crude but universal;
+often used as a first step or applied to $g(X)\ge 0$ (e.g.\ $g(x)=e^{\lambda x}$).
+
+\section{Chebyshev's Inequality}
+\textbf{Statement.} For any $t>0$ and any real $X$ with finite mean $\mu$ and variance $\sigma^2$,
+\[
+		\mathbb{P}(|X-\mu|\ge t)\le \frac{\sigma^2}{t^2}.
+\]
+
+\textbf{Proof.} Apply Markov to the nonnegative variable $(X-\mu)^2$:
+$\mathbb{P}\big((X-\mu)^2\ge t^2\big)\le \mathbb{E}[(X-\mu)^2]/t^2=\sigma^2/t^2$.
+
+\textbf{Use.} Tail bound that needs only variance; suboptimal constants but assumption-light.
+
+\section{Hoeffding's Inequality (Additive form)}
+\textbf{Setting.} $X_1,\dots,X_n$ independent with $a_i\le X_i\le b_i$ a.s., and let
+$S=\sum_{i=1}^n X_i$, $\mu=\mathbb{E}[S]$.
+
+\textbf{Statement.} For any $t>0$,
+\[
+		\mathbb{P}\big(S-\mu \ge t\big) \;\le\; \exp\!\Big(-\frac{2t^2}{\sum_{i=1}^n (b_i-a_i)^2}\Big),
+		\qquad
+		\mathbb{P}\big(|S-\mu| \ge t\big) \;\le\; 2\exp\!\Big(-\frac{2t^2}{\sum_{i=1}^n (b_i-a_i)^2}\Big).
+\]
+
+\textbf{Proof sketch.} For each $i$, by Hoeffding’s lemma
+$\log \mathbb{E}\,e^{\lambda(X_i-\mathbb{E}X_i)} \le \lambda^2(b_i-a_i)^2/8$.
+Independence makes mgfs multiply; optimize over $\lambda>0$.
+
+\textbf{Use.} Concentration for \emph{bounded} independent summands. Gives sub-Gaussian
+tails with variance proxy $\sum (b_i-a_i)^2/4$.
+
+\section{Chernoff Bounds (Multiplicative, for sums of Bernoulli)}
+\textbf{Setting.} $X=\sum_{i=1}^n X_i$ with $X_i\sim\mathrm{Bernoulli}(p_i)$ independent;
+let $\mu=\mathbb{E}[X]=\sum p_i$.
+
+\textbf{Upper tail (multiplicative).} For $0<\delta<1$,
+\[
+		\mathbb{P}\big(X \ge (1+\delta)\mu\big)
+		\;\le\;
+		\Big(\frac{e^\delta}{(1+\delta)^{1+\delta}}\Big)^{\mu}
+		\;\le\;
+		\exp\!\Big(-\frac{\mu\delta^2}{3}\Big).
+\]
+For $\delta\ge 1$,
+$\ \mathbb{P}(X \ge (1+\delta)\mu) \le \exp\!\big(-\frac{\mu\delta}{3}\big)$.
+
+\textbf{Lower tail.} For $0<\delta<1$,
+\[
+		\mathbb{P}\big(X \le (1-\delta)\mu\big)
+		\;\le\;
+		\Big(\frac{e^{-\delta}}{(1-\delta)^{1-\delta}}\Big)^{\mu}
+		\;\le\;
+		\exp\!\Big(-\frac{\mu\delta^2}{2}\Big).
+\]
+
+\textbf{Proof sketch (Chernoff method).} For $\lambda>0$,
+$\mathbb{P}(X\ge t)=\mathbb{P}(e^{\lambda X}\ge e^{\lambda t})\le e^{-\lambda
+t}\mathbb{E}e^{\lambda X}$.
+For Bernoulli, $\mathbb{E}e^{\lambda X}=\prod_i\big(1-p_i+p_i e^{\lambda}\big)$.
+Optimize $\lambda$ to get the Kullback–Leibler form; relax to the quadratic forms above.
+
+\textbf{Use.} Sharpest classical tails for sums of independent indicators (or bounded
+r.v.'s via mgf bounds). Preferred when deviations scale relative to $\mu$.
+
+\section{Connections and Quick Guidance}
+\begin{itemize}
+  \item \textbf{Markov} needs only $\mathbb{E}[X]$ and $X\ge0$; weakest but universal.
+  \item \textbf{Chebyshev} uses variance; symmetric two-sided bound, assumption-light.
+		\item \textbf{Hoeffding} assumes bounded independent summands; gives sub-Gaussian tails
+				in $t$ with scale $\sqrt{n}$.
+		\item \textbf{Chernoff} (for Bernoulli/Poisson‐binomial) gives multiplicative bounds in
+				$\mu$; typically tighter than Hoeffding when $p_i$ are small/moderate.
+\end{itemize}
+
+\section{Mini Examples}
+\subsection*{Chebyshev sanity check}
+If $X$ has mean $\mu$ and sd $\sigma$, then
+$\mathbb{P}(|X-\mu|\ge 3\sigma) \le 1/9 \approx 0.111$ (distribution-free).
+
+\subsection*{Hoeffding for averages}
+Let $Y_i\in[0,1]$ independent, $\bar Y=\frac1n\sum Y_i$, and $t>0$.
+Then
+\[
+		\mathbb{P}\big(|\bar Y-\mathbb{E}\bar Y|\ge t\big)
+		\le 2\exp(-2nt^2).
+\]
+
+\subsection*{Chernoff for coin flips}
+$X\sim\mathrm{Bin}(n,p)$, $\mu=np$. For $0<\delta<1$,
+\[
+		\mathbb{P}\big(X\ge (1+\delta)\mu\big)
+		\le \exp\!\Big(-\frac{\mu\delta^2}{3}\Big),\quad
+		\mathbb{P}\big(X\le (1-\delta)\mu\big)
+		\le \exp\!\Big(-\frac{\mu\delta^2}{2}\Big).
+\]
+
+\section{One-Line Derivations to Remember}
+\begin{align*}
+		\text{Markov:}\;& \mathbb{P}(X\ge a) \le \frac{\mathbb{E}[X]}{a}.\\
+		\text{Chebyshev:}\;& \mathbb{P}(|X-\mu|\ge t) \le \frac{\mathrm{Var}(X)}{t^2}.\\
+		\text{Chernoff trick:}\;& \mathbb{P}(X\ge t) \le \inf_{\lambda>0}\; e^{-\lambda
+		t}\,\mathbb{E}e^{\lambda X}.\\
+		\text{Hoeffding lemma:}\;& \log \mathbb{E}e^{\lambda(X-\mathbb{E}X)} \le
+		\frac{\lambda^2(b-a)^2}{8}\ \text{if }X\in[a,b].
+\end{align*}
+
+\end{document}
