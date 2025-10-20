@@ -14,6 +14,14 @@
 \newcommand{\set}[1]{\{ #1 \}}
 \DeclareMathOperator*{\err}{\mathrm{err}}
 
+% Distribution symbols
+\newcommand{\Normal}{\mathcal{N}}  % usage: \Normal(\mu,\sigma^2) or \Normal(x \mid \mu,\sigma^2)
+\newcommand{\Normalp}[2]{\mathcal{N}\!\left(#1,#2\right)} % \Normalp{\mu}{\sigma^2}
+
+% Common distribution names
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Cat}{\mathrm{Cat}}
+
 % Blackboard Bold
 \newcommand{\HH}{\mathbb{H}}
 \newcommand{\CC}{\mathbb{C}}
@@ -101,15 +109,25 @@
 \newcommand{\bLam}{\mathbf{\Lambda}}
 
 % Ceiling and Floor
-\newcommand{\ceil}[1]{\lceil #1 \rceil}
-\newcommand{\bigceil}[1]{\Bigl \lceil #1 \Bigr \rceil}
-\newcommand{\floor}[1]{\lfloor #1 \rfloor}
-\newcommand{\bigfloor}[1]{\Bigl \lfloor #1 \Bigr \rfloor}
+\providecommand{\ceil}[1]{\lceil #1 \rceil}
+\providecommand{\bigceil}[1]{\Bigl \lceil #1 \Bigr \rceil}
+\providecommand{\floor}[1]{\lfloor #1 \rfloor}
+\providecommand{\bigfloor}[1]{\Bigl \lfloor #1 \Bigr \rfloor}
 
 % Indicator Functions
-\newcommand{\indic}[1]{\mbf{1}\left\{#1\right\}} % Indicator function
-\newcommand{\bigindic}[1]{\mbf{I}_{#1}} % Indicator function
+\providecommand{\indic}[1]{\mbf{1}\left\{#1\right\}} % Indicator function
+\providecommand{\bigindic}[1]{\mbf{I}_{#1}} % Indicator function
 
 % Text shortcut
-\newcommand{\tbf}[1]{\textbf{#1}}
-\newcommand{\tit}[1]{\textit{#1}}
+\providecommand{\tbf}[1]{\textbf{#1}}
+\providecommand{\tit}[1]{\textit{#1}}
+\newcommand{\textc}[1]{\intertext{\centering #1}}
+\newcount\nquadcount
+\newcommand{\nquad}[1]{% integer N
+  \begingroup
+		\nquadcount=#1\relax
+		\loop\ifnum\nquadcount>0
+		\quad\advance\nquadcount by -1
+		\repeat
+  \endgroup
+}
